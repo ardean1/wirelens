@@ -17,7 +17,7 @@
 ## Why it’s useful
 
 - **Catch surprises** — unknown processes, odd remote ports, CGNAT/cloud endpoints, short-lived connection bursts
-- **Farm / home / IT** — one host visibility when you do not want a full IDS appliance
+- **One-host visibility** — see this PC’s connections when you do not want a full IDS appliance
 - **Transparent rules** — every flag is explained (`GET /api/rules`); no fake “threat scores”
 - **Works offline-first** — binds **localhost only** by default (`127.0.0.1:8787`)
 - **Demo mode** — try the UI without admin privileges
