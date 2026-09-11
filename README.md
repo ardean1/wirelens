@@ -1,14 +1,14 @@
 ```
- _   _      _   ____  _       _     _
-| \ | | ___| |_/ ___|(_) __ _| |__ | |_
-|  \| |/ _ \ __\___ \| |/ _` | '_ \| __|
-| |\  |  __/ |_ ___) | | (_| | | | | |_
-|_| \_|\___|\__|____/|_|\__, |_| |_|\__|
-                        |___/
-     See what your PC is talking to
+ __        ___          _                   
+ \ \      / (_)_ __ ___| |    ___ _ __  ___ 
+  \ \ /\ / /| | '__/ _ \ |   / _ \ '_ \/ __|
+   \ V  V / | | | |  __/ |__|  __/ | | \__ \
+    \_/\_/  |_|_|  \___|_____\___|_| |_|___/
+         See what your PC is talking to
 ```
 
-# NetSight
+# WireLens
+
 
 **Free for everyone to use.** Optional donations help cover Ardean’s costs — this is not a paid product and not a cloud security service.
 
@@ -22,7 +22,7 @@
 - **Works offline-first** — binds **localhost only** by default (`127.0.0.1:8787`)
 - **Demo mode** — try the UI without admin privileges
 
-**Not a perimeter IDS.** NetSight only sees what this host can see via its own sockets (`psutil`). Heuristics are for triage, not malware verdicts.
+**Not a perimeter IDS.** WireLens only sees what this host can see via its own sockets (`psutil`). Heuristics are for triage, not malware verdicts.
 
 ## Windows — download, run, and close (start here)
 
@@ -35,8 +35,8 @@
 ### 2. Extract and keep the folder
 1. Right-click the ZIP → **Extract All...** (or open it and drag the inner folder out).
 2. Put the extracted folder somewhere permanent, for example your Desktop:
-   - Desktop\netsight
-3. Open that folder until you see **start.bat**, **start-live.bat**, and the **netsight** folder.
+   - Desktop\wirelens
+3. Open that folder until you see **start.bat**, **start-live.bat**, and the **wirelens** folder.
 
 ### 3. One-time: install Python (if you do not have it)
 1. Install **Python 3.10 or newer** from https://www.python.org/downloads/
@@ -50,8 +50,8 @@
 4. Open a browser to http://127.0.0.1:8787/
 
 ### 5. Close properly
-1. Close the **browser tab** for NetSight (optional but tidy).
-2. Click the **Command Prompt** window that is running NetSight.
+1. Close the **browser tab** for WireLens (optional but tidy).
+2. Click the **Command Prompt** window that is running WireLens.
 3. Press **Ctrl+C**, or click the **X** on that window.
 4. That stops the dashboard. To use it again later, double-click **start.bat** or **start-live.bat** again.
 
@@ -62,14 +62,14 @@
 python -m venv .venv
 # Windows: .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-python -m netsight --demo
-python -m netsight
+python -m wirelens --demo
+python -m wirelens
 ```
 
 
 ## Cost / API keys
 
-**No cloud API keys. No Grok Bot / Cursor session is used when you run NetSight.** It only inspects the machine it runs on. Other people running copies do **not** create usage charges for the author.
+**No cloud API keys. No Grok Bot / Cursor session is used when you run WireLens.** It only inspects the machine it runs on. Other people running copies do **not** create usage charges for the author.
 
 ## Optional support
 

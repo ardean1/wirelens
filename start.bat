@@ -1,6 +1,6 @@
 @echo off
 cd /d "%~dp0"
-echo Starting NetSight (demo mode first-run friendly)...
+echo Starting WireLens (demo mode first-run friendly)...
 where py >nul 2>&1 && set PY=py -3
 if not defined PY where python >nul 2>&1 && set PY=python
 if not defined PY (
@@ -17,5 +17,5 @@ if not exist .venv (
   call .venv\Scripts\activate.bat
 )
 echo Keep this window open. Open http://127.0.0.1:8787/
-python -m netsight --demo
+python -m wirelens --demo
 if errorlevel 1 pause

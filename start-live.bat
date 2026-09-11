@@ -1,6 +1,6 @@
 @echo off
 cd /d "%~dp0"
-echo Starting NetSight LIVE (real host sockets)...
+echo Starting WireLens LIVE (real host sockets)...
 where py >nul 2>&1 && set PY=py -3
 if not defined PY where python >nul 2>&1 && set PY=python
 if not defined PY (
@@ -16,5 +16,5 @@ if not exist .venv (
   call .venv\Scripts\activate.bat
 )
 echo Keep this window open. Open http://127.0.0.1:8787/
-python -m netsight
+python -m wirelens
 if errorlevel 1 pause
