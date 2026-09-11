@@ -9,6 +9,7 @@
 
 # WireLens
 
+<p align="center"><img src="docs/logo.png" alt="WireLens logo" width="220"></p>
 
 **Free for everyone to use.** Optional donations help cover Ardean’s costs — this is not a paid product and not a cloud security service.
 
@@ -70,6 +71,14 @@ python -m wirelens
 ## Cost / API keys
 
 **No cloud API keys. No Grok Bot / Cursor session is used when you run WireLens.** It only inspects the machine it runs on. Other people running copies do **not** create usage charges for the author.
+
+## Trust & security
+
+- Runs **on your PC**; default bind is **localhost only**
+- No publisher cloud account, no paid API keys baked into the app
+- Heuristic flags are explained in-app (`GET /api/rules`) — not secret “AI threat scores”
+- See [SECURITY.md](SECURITY.md) for the policy and how to report vulnerabilities privately
+- Prefer this GitHub repo (or Releases) as the download source
 
 ## Optional support
 
