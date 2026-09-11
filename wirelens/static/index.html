@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WireLens — Host Network Visibility</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <h1>WireLens</h1>
+      <span class="tag">host visibility · v1</span>
+    </div>
+    <div class="toolbar">
+      <span class="stat" id="wsStat"><span class="dot" id="wsDot"></span><strong id="wsLabel">connecting</strong></span>
+      <span class="stat">conns <strong id="connCount">0</strong></span>
+      <span class="stat">dns <strong id="dnsCount">0</strong></span>
+      <span class="stat" id="modeStat">mode <strong id="modeLabel">—</strong></span>
+      <input type="search" id="search" placeholder="Filter process, IP, port, flag…" autocomplete="off" />
+      <button type="button" id="btnSuspicious" title="Show only flagged rows">Suspicious only</button>
+      <button type="button" class="primary" id="btnExport">Export CSV</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel conn-panel">
+      <div class="panel-head"><h2>Live connections</h2><span class="stat" id="shownStat">showing 0</span></div>
+      <table>
+        <thead>
+          <tr>
+            <th>Proto</th>
+            <th>Local</th>
+            <th>Remote</th>
+            <th>Host</th>
+            <th>State</th>
+            <th>Process</th>
+            <th>Class</th>
+            <th>Flags</th>
+          </tr>
+        </thead>
+        <tbody id="connBody">
+          <tr><td colspan="8" class="empty">Waiting for data…</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <aside class="side">
+      <section class="panel dns-panel">
+        <div class="panel-head"><h2>DNS / reverse cache</h2></div>
+        <ul class="dns-list" id="dnsList"></ul>
+      </section>
+      <section class="panel rules-panel">
+        <div class="panel-head"><h2>Suspicion rules</h2></div>
+        <ul class="rules-list" id="rulesList"></ul>
+      </section>
+    </aside>
+  </main>
+
+  <div class="backdrop" id="backdrop"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <h3>Connection detail</h3>
+      <button type="button" id="btnCloseDrawer">Close</button>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+  </aside>
+
+  <footer>
+    WireLens shows host-local sockets — not perimeter IDS. CGNAT (100.64/10) and public tags are informational.
+    Reverse DNS via socket.getnameinfo with TTL cache.
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
