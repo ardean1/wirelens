@@ -1,0 +1,15 @@
+# WireLens example blocklist
+# Lines starting with # are comments.
+# Entries may be domains, IPs, or CIDRs (IPv4).
+
+# Example malicious / sinkhole domains
+malware.example
+evil.invalid
+phishing.test
+
+# Example IPs
+203.0.113.66
+198.51.100.23
+
+# Example CIDR
+203.0.113.0/24
