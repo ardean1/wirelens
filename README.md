@@ -13,25 +13,78 @@
 
 **Free for everyone to use.** Optional donations help cover Ardean’s costs — this is not a paid product and not a cloud security service.
 
-**See what *this computer* is talking to** — live TCP/UDP connections, reverse-DNS names, and plain-English suspicion flags — in a dark local dashboard. No SIEM, no subscription, no sending your traffic to someone else’s cloud.
+**See what *this computer* is talking to** — which programs are connecting to which hosts on the network — in a dark local dashboard. No SIEM, no subscription, no sending your traffic to someone else’s cloud.
+
+> **Two different apps:**  
+> - **Windows / PC WireLens** (this repo) — run with `start.bat` on your computer.  
+> - **WireLens Phone (Android)** — a separate `.apk` you install on your phone (see below).  
+> They are not the same download. Do not expect `start.bat` to work on a phone.
+
+## Download the Android app (phone)
+
+Use this only if you want the **phone** app. On a PC you want the Windows steps further down.
+
+1. On your **phone**, open **Chrome** and go to the Releases page:  
+   **https://github.com/ardean1/wirelens-android/releases**
+
+   Direct APK (Chrome on phone):
+   **https://github.com/ardean1/wirelens-android/releases/download/android-debug-2026-09-15/WireLens-debug.apk**
+2. Open the **latest release**.
+3. Tap the file named **`WireLens-debug.apk`** (or `WireLens-….apk`).
+4. If Android asks, allow install from Chrome / that source → tap **Install**.
+5. Phone menus differ by brand — if stuck, search: `sideload APK` + your phone brand/model (Samsung, Pixel, Motorola, etc.).
+
+Until the first GitHub Release is published, a locally built debug APK may also exist on the build machine as **`/workspace/WireLens-debug.apk`**. Prefer the Releases link once it is live.
+
+**Play Store listing may come later** for WireLens Phone (`com.ardean.wirelens`, targetSdk 36). Until then, install from GitHub Releases (plain steps above). Debug sideload APK ≠ Play release AAB.
+
+The phone app uses a **local VPN-style monitor** (you must approve Android’s VPN prompt). It does **not** decrypt HTTPS and is **not** antivirus. Traffic stays on the device.
+
+## What WireLens (Windows) shows
+
+WireLens lists **live network connections** from this PC:
+
+- Which **program** (process name / PID) opened the connection  
+- Where it is talking (**IP address**, and a hostname when reverse-DNS finds one)  
+- Port, protocol (TCP/UDP), and connection state  
+
+Think of it as a clearer window into “who on my PC is calling out,” not a security guard that blocks threats.
+
+## What “suspicious / unwanted” means here
+
+Flags are **simple heuristics** — hints for a human to look twice — **not** malware detection and **not** antivirus.
+
+Examples of what may get flagged:
+
+- A remote address with **no hostname** (unknown destination name in our cache)  
+- An **unusual port** (outside a short list of common services)  
+- A process that opened **many short-lived** connections quickly  
+- A hit on an **optional blocklist** you maintain yourself  
+
+**What to do next (don’t panic):**
+
+1. Note the **process name** and the **remote host/IP**.  
+2. Ask: is this app supposed to be online? (browser, updater, game launcher, cloud sync — often yes.)  
+3. If you do not recognize the process, look it up from a trusted source or check whether you installed it.  
+4. WireLens does **not** quarantine or remove software — it only helps you see and decide.
 
 ## Why it’s useful
 
-- **Catch surprises** — unknown processes, odd remote ports, CGNAT/cloud endpoints, short-lived connection bursts
-- **One-host visibility** — see this PC’s connections when you do not want a full IDS appliance
-- **Transparent rules** — every flag is explained (`GET /api/rules`); no fake “threat scores”
-- **Works offline-first** — binds **localhost only** by default (`127.0.0.1:8787`)
-- **Demo mode** — try the UI without admin privileges
+- **Catch surprises** — unknown processes, odd remote ports, CGNAT/cloud endpoints, short-lived connection bursts  
+- **One-host visibility** — see this PC’s connections when you do not want a full IDS appliance  
+- **Transparent rules** — every flag is explained (`GET /api/rules`); no fake “threat scores”  
+- **Works offline-first** — binds **localhost only** by default (`127.0.0.1:8787`)  
+- **Demo mode** — try the UI without admin privileges  
 
 **Not a perimeter IDS.** WireLens only sees what this host can see via its own sockets (`psutil`). Heuristics are for triage, not malware verdicts.
 
-## Windows — download, run, and close (start here)
+## Windows — download, run, and close (PC start here)
 
-### 1. Download
-1. Open the GitHub page in your browser.
-2. Click the green **Code** button.
-3. Click **Download ZIP**.
-4. Save the ZIP somewhere easy, like your **Desktop** or **Downloads**.
+### 1. Download the Windows package
+1. Open this project’s GitHub page in a browser (prefer the official Ardean repo / Releases).  
+2. Get the source ZIP **or** a Release asset if one is published:  
+   - Easy path: open **https://github.com/ardean1/wirelens/releases** if Releases exist, **or** on the repo page use **Code → Download ZIP**.  
+3. Save the ZIP somewhere easy, like your **Desktop** or **Downloads**.
 
 ### 2. Extract and keep the folder
 1. Right-click the ZIP → **Extract All...** (or open it and drag the inner folder out).
@@ -93,8 +146,9 @@ Tips are **100% optional**.
 - Live connections: addresses, ports, protocol, state, process name/PID/exe, first/last seen
 - DNS panel: reverse-DNS cache with TTL
 - Suspicion rules: `raw_ip`, `many_short`, `unusual_port`, `cgnat_or_public`, `blocklist_hit`
-- Search / “suspicious only” / detail drawer / WebSocket ~2s / CSV export
+- Search / “flagged only” / detail drawer / WebSocket ~2s / CSV export
 - Optional blocklist file (`blocklists/example.txt`)
+- In-dashboard **“Unwanted connections?”** help callout
 
 ## API
 

@@ -10,7 +10,7 @@ It is **not**:
 - malware detection with verdicts
 - a service that uploads your connection list to the publisher
 
-Suspicion flags are **heuristic triage** with plain-English reasons (`GET /api/rules`). Treat them as hints, not proof.
+Suspicion / “unwanted” flags are **heuristic triage** with plain-English reasons (`GET /api/rules`). They mean “look twice,” not “this is malware.” Treat them as hints, not proof. WireLens is not antivirus.
 
 ## Trust checklist for users
 
