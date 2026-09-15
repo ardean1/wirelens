@@ -150,7 +150,7 @@ def evaluate_raw_ip(hostname: Optional[str], remote_addr: str) -> Optional[Suspi
         return None
     return SuspicionFlag(
         id="raw_ip",
-        description="Remote address has no reverse DNS name in cache.",
+        description="No hostname found for this remote address — destination name is unknown (not proof of malware).",
         detail=f"{remote_addr} ({addr_class}) unresolved",
     )
 
@@ -159,7 +159,7 @@ def evaluate_unusual_port(remote_port: int) -> Optional[SuspicionFlag]:
     if is_unusual_port(remote_port):
         return SuspicionFlag(
             id="unusual_port",
-            description="Remote port is outside the common-service allowlist.",
+            description="Remote port is uncommon on a typical PC — worth a quick look, often still legitimate.",
             detail=f"port {remote_port}",
         )
     return None
@@ -170,7 +170,7 @@ def evaluate_cgnat_or_public(remote_addr: str) -> SuspicionFlag:
     cls = classify_address(remote_addr)
     return SuspicionFlag(
         id="cgnat_or_public",
-        description="Address class tagging: private, CGNAT (100.64/10), or public.",
+        description="Address type tag (home/private, carrier CGNAT, or public internet) — informational only.",
         detail=cls,
     )
 
@@ -186,7 +186,7 @@ def evaluate_blocklist(
         return None
     return SuspicionFlag(
         id="blocklist_hit",
-        description="Remote IP, hostname, or containing CIDR matches an optional blocklist entry.",
+        description="Matched your optional blocklist file — you (or the example list) marked this destination.",
         detail=detail,
     )
 
@@ -222,7 +222,7 @@ def evaluate_many_short(
         if len(remotes) >= min_remotes:
             out[pid] = SuspicionFlag(
                 id="many_short",
-                description="Same process contacted many short-lived remote endpoints in a recent window.",
+                description="Same program opened many short connections quickly — can be normal (browsers, updaters) or worth checking.",
                 detail=f"pid {pid}: {len(remotes)} remotes in {window_sec:.0f}s",
             )
     return out
