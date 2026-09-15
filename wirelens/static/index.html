@@ -3,25 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WireLens — Host Network Visibility</title>
+  <title>WireLens — See what this PC is talking to</title>
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
   <header>
     <div class="brand">
       <h1>WireLens</h1>
-      <span class="tag">host visibility · v1</span>
+      <span class="tag">this PC · local only · v1</span>
     </div>
     <div class="toolbar">
       <span class="stat" id="wsStat"><span class="dot" id="wsDot"></span><strong id="wsLabel">connecting</strong></span>
       <span class="stat">conns <strong id="connCount">0</strong></span>
       <span class="stat">dns <strong id="dnsCount">0</strong></span>
       <span class="stat" id="modeStat">mode <strong id="modeLabel">—</strong></span>
-      <input type="search" id="search" placeholder="Filter process, IP, port, flag…" autocomplete="off" />
-      <button type="button" id="btnSuspicious" title="Show only flagged rows">Suspicious only</button>
+      <input type="search" id="search" placeholder="Filter program, IP, port, flag…" autocomplete="off" />
+      <button type="button" id="btnSuspicious" title="Show only rows with heuristic flags">Flagged only</button>
+      <button type="button" id="btnHelp" title="What do these flags mean?">Unwanted?</button>
       <button type="button" class="primary" id="btnExport">Export CSV</button>
     </div>
   </header>
+
+  <div class="help-banner" id="helpBanner" hidden>
+    <div class="help-banner-inner">
+      <strong>Unwanted connections?</strong>
+      <p>
+        WireLens shows <em>which programs on this PC</em> are talking to which hosts on the network.
+        A “flag” means something looked unusual by a simple rule (unknown hostname, odd port, burst of short connections, or your optional blocklist) —
+        <strong>not</strong> that it is malware, and <strong>not</strong> antivirus.
+      </p>
+      <ol>
+        <li>Note the <strong>process</strong> name and the <strong>remote</strong> host or IP.</li>
+        <li>Ask if that app is expected to be online (browser, updater, sync — often yes).</li>
+        <li>If you do not recognize it, investigate calmly — WireLens does not remove software.</li>
+      </ol>
+      <p class="help-muted">All data stays on this computer (localhost). Optional tip: Cash App $AnthonyDean16.</p>
+      <button type="button" id="btnHelpClose">Got it</button>
+    </div>
+  </div>
 
   <main>
     <section class="panel conn-panel">
@@ -46,12 +65,20 @@
     </section>
 
     <aside class="side">
+      <section class="panel help-panel">
+        <div class="panel-head"><h2>Unwanted connections?</h2></div>
+        <div class="help-side">
+          <p><strong>What you see:</strong> programs and hosts talking on the network from <em>this</em> PC.</p>
+          <p><strong>“Flagged / suspicious” here</strong> means a heuristic hint (unknown destination name, unusual port, busy short connections, or your blocklist) — <em>not</em> a malware verdict.</p>
+          <p><strong>Next step:</strong> note the process → check if you expect it → don’t panic. WireLens only helps you look.</p>
+        </div>
+      </section>
       <section class="panel dns-panel">
         <div class="panel-head"><h2>DNS / reverse cache</h2></div>
         <ul class="dns-list" id="dnsList"></ul>
       </section>
       <section class="panel rules-panel">
-        <div class="panel-head"><h2>Suspicion rules</h2></div>
+        <div class="panel-head"><h2>What flags mean</h2></div>
         <ul class="rules-list" id="rulesList"></ul>
       </section>
     </aside>
@@ -67,8 +94,8 @@
   </aside>
 
   <footer>
-    WireLens shows host-local sockets — not perimeter IDS. CGNAT (100.64/10) and public tags are informational.
-    Reverse DNS via socket.getnameinfo with TTL cache.
+    WireLens shows this PC’s sockets only — not antivirus, not perimeter IDS.
+    Flags are triage hints. HTTPS contents are never decrypted. Local-first · MIT · optional Cash App $AnthonyDean16.
   </footer>
 
   <script src="/static/app.js"></script>

@@ -196,6 +196,22 @@
     renderConnections();
   });
 
+  const helpBanner = $("helpBanner");
+  const btnHelp = $("btnHelp");
+  const btnHelpClose = $("btnHelpClose");
+  if (btnHelp && helpBanner) {
+    btnHelp.addEventListener("click", () => {
+      helpBanner.hidden = !helpBanner.hidden;
+      btnHelp.classList.toggle("active", !helpBanner.hidden);
+    });
+  }
+  if (btnHelpClose && helpBanner) {
+    btnHelpClose.addEventListener("click", () => {
+      helpBanner.hidden = true;
+      if (btnHelp) btnHelp.classList.remove("active");
+    });
+  }
+
   btnExport.addEventListener("click", () => {
     const params = new URLSearchParams();
     if (state.suspiciousOnly) params.set("suspicious_only", "true");
